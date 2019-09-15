@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <td>Select User</td>
+        <td>
+            @Html.DropDownList("UserData",null,"Select User", htmlAttributes: new { @class="form-control"})
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <table>
+                <tr>
+                    <td>Id</td>
+                    <td>
+                        <label id="lblId" class="alert-info"></label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Name</td>
+                    <td>
+                        <label id="lblName" class="alert-info"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>EmailId</td>
+                    <td>
+                        <label id="lblEmailId" class="alert-info"></label>
+                    </td>
+                </tr>
+
+
+
+            </table>
+        </td>
+    </tr>
+</table>
+<script>
+    $(document).ready(function () {
+        $("#UserData").change(function () {
+
+            var id = $(this).val();
+            var urlUser = "@Url.Action("getUserdetails","UserHideSeek")/" + id;
+            if (id === "") {
+                alert("No Data Found!");
+                return false;
+            }
+            $.getJSON(urlUser, null, function (data) {
+
+                $("#lblId").html(data.userId);
+                $("#lblName").html(data.UserName);
+                $("#lblEmailId").html(data.EmailId);
+
+
+            });
+       
+        });
+
+    });
+</script>
+
+
